@@ -2,6 +2,7 @@ package org.goros.userservice.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.goros.userservice.entity.request.AppUserRequest;
+import org.goros.userservice.entity.request.UpdateUserRequest;
 import org.goros.userservice.entity.response.ApiResponse;
 import org.goros.userservice.entity.response.ApiResponseVoid;
 import org.goros.userservice.entity.response.AppUserResponse;
@@ -48,6 +49,13 @@ public class AppUserController {
     @PostMapping("/user")
     public ResponseEntity<ApiResponse<AppUserResponse>> addUser(@RequestBody AppUserRequest request) {
         ApiResponse<AppUserResponse> response = ResponseUtil.success("User created successfully", appUserService.addUser(request));
+        return ResponseEntity.status(response.getStatus()).body(response);
+    }
+
+    @PutMapping("/user/{user-id}")
+    public ResponseEntity<ApiResponseVoid> updateUserById(@PathVariable("user-id") UUID userId, @RequestBody UpdateUserRequest request) {
+        appUserService.updateUserById(userId, request);
+        ApiResponseVoid response = ResponseUtil.successVoid("User updated successfully");
         return ResponseEntity.status(response.getStatus()).body(response);
     }
 }

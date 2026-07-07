@@ -3,6 +3,7 @@ package org.goros.userservice.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.goros.userservice.entity.model.AppUser;
 import org.goros.userservice.entity.request.AppUserRequest;
+import org.goros.userservice.entity.request.UpdateUserRequest;
 import org.goros.userservice.entity.response.AppUserResponse;
 import org.goros.userservice.exception.UserNotFoundException;
 import org.goros.userservice.repository.AppUserRepository;
@@ -56,5 +57,13 @@ public class AppUserServiceImpl implements AppUserService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         appUserRepository.save(user);
         return modelMapper.map(user, AppUserResponse.class);
+    }
+
+    @Transactional
+    @Override
+    public void updateUserById(UUID userId, UpdateUserRequest request) {
+        AppUser user = appUserRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
     }
 }

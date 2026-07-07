@@ -22,6 +22,15 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/authentication-service" />
+        <option name="gradleJvm" value="openjdk-25" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/authentication-service" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/user-service" />
         <option name="gradleJvm" value="openjdk-25" />
         <option name="modules">
