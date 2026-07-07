@@ -1,15 +1,14 @@
 package org.goros.userservice.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.goros.userservice.entity.request.AppUserRequest;
 import org.goros.userservice.entity.response.ApiResponse;
+import org.goros.userservice.entity.response.ApiResponseVoid;
 import org.goros.userservice.entity.response.AppUserResponse;
 import org.goros.userservice.service.AppUserService;
 import org.goros.userservice.utils.ResponseUtil;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -30,6 +29,25 @@ public class AppUserController {
     @GetMapping("/user/{user-id}")
     public ResponseEntity<ApiResponse<AppUserResponse>> getUserById(@PathVariable("user-id")UUID userId) {
         ApiResponse<AppUserResponse> response = ResponseUtil.success("User fetched successfully", appUserService.getUserById(userId));
+        return ResponseEntity.status(response.getStatus()).body(response);
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<ApiResponse<List<AppUserResponse>>> getUserByEmailOrUsername(@RequestParam String identifier) {
+        ApiResponse<List<AppUserResponse>> response = ResponseUtil.success("User fetched successfully", appUserService.getUserByEmailOrUsername(identifier));
+        return ResponseEntity.status(response.getStatus()).body(response);
+    }
+
+    @DeleteMapping("/user/{user-id}")
+    public ResponseEntity<ApiResponseVoid> deleteUserById(@PathVariable("user-id")UUID userId) {
+        appUserService.deleteUserById(userId);
+        ApiResponseVoid response = ResponseUtil.successVoid("User deleted successfully");
+        return ResponseEntity.status(response.getStatus()).body(response);
+    }
+
+    @PostMapping("/user")
+    public ResponseEntity<ApiResponse<AppUserResponse>> addUser(@RequestBody AppUserRequest request) {
+        ApiResponse<AppUserResponse> response = ResponseUtil.success("User created successfully", appUserService.addUser(request));
         return ResponseEntity.status(response.getStatus()).body(response);
     }
 }
