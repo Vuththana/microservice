@@ -25,4 +25,7 @@ public interface AppUserRepository extends JpaRepository<AppUser, UUID> {
     @Modifying
     @Query("DELETE FROM AppUser au WHERE au.userId = :userId")
     void deleteUserById(UUID  userId);
+
+    @Query("SELECT au FROM AppUser au WHERE LOWER(au.email) LIKE LOWER(CONCAT('%', :identifier, '%')) OR LOWER(au.username) LIKE LOWER(CONCAT('%', :identifier, '%'))")
+    Optional<AppUser> getByIdIdentifier(String identifier);
 }

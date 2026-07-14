@@ -14,4 +14,5 @@ public interface AppUserService {
     void deleteUserById(UUID userId);
     AppUserResponse addUser(AppUserRequest request);
     void updateUserById(UUID userId, UpdateUserRequest request);
+    AppUserResponse getUserByIdentifier(String email);
 }

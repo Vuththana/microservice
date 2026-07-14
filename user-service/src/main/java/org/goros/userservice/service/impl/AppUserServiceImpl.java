@@ -66,4 +66,14 @@ public class AppUserServiceImpl implements AppUserService {
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
     }
+
+    @Override
+    public AppUserResponse getUserByIdentifier(String identifier) {
+        AppUser user = appUserRepository
+                .getByIdIdentifier(identifier)
+                .orElseThrow(() ->
+                        new UserNotFoundException("User not found")
+                );
+        return modelMapper.map(user, AppUserResponse.class);
+    }
 }

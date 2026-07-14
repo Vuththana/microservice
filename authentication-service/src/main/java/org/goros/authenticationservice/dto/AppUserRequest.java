@@ -1,4 +1,4 @@
-package org.goros.userservice.entity.request;
+package org.goros.authenticationservice.dto;
 
 import lombok.Data;
 
