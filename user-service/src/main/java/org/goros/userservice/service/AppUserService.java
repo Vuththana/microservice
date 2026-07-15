@@ -3,6 +3,7 @@ package org.goros.userservice.service;
 import org.goros.userservice.entity.request.AppUserRequest;
 import org.goros.userservice.entity.request.UpdateUserRequest;
 import org.goros.userservice.entity.response.AppUserResponse;
+import org.goros.userservice.entity.response.InternalAppUserResponse;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,5 +15,5 @@ public interface AppUserService {
     void deleteUserById(UUID userId);
     AppUserResponse addUser(AppUserRequest request);
     void updateUserById(UUID userId, UpdateUserRequest request);
-    AppUserResponse getUserByIdentifier(String email);
+    InternalAppUserResponse getUserByIdentifier(String email);
 }

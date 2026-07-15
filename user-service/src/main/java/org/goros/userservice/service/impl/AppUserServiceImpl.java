@@ -5,6 +5,7 @@ import org.goros.userservice.entity.model.AppUser;
 import org.goros.userservice.entity.request.AppUserRequest;
 import org.goros.userservice.entity.request.UpdateUserRequest;
 import org.goros.userservice.entity.response.AppUserResponse;
+import org.goros.userservice.entity.response.InternalAppUserResponse;
 import org.goros.userservice.exception.UserNotFoundException;
 import org.goros.userservice.repository.AppUserRepository;
 import org.goros.userservice.service.AppUserService;
@@ -68,12 +69,12 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public AppUserResponse getUserByIdentifier(String identifier) {
+    public InternalAppUserResponse getUserByIdentifier(String identifier) {
         AppUser user = appUserRepository
                 .getByIdIdentifier(identifier)
                 .orElseThrow(() ->
                         new UserNotFoundException("User not found")
                 );
-        return modelMapper.map(user, AppUserResponse.class);
+        return modelMapper.map(user, InternalAppUserResponse.class);
     }
 }
