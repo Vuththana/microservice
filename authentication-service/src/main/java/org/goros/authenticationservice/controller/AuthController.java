@@ -21,6 +21,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public String login(@RequestBody LoginRequest request) {
+        System.out.println("Login endpoint reached");
         Authentication authenticated = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getIdentifier(), request.getPassword()));
         if(authenticated.isAuthenticated()) {
             return service.generateToken(request.getIdentifier());
