@@ -1,7 +1,7 @@
-package org.goros.userservice.utils;
+package org.goros.categoryservice.utils;
 
-import org.goros.userservice.entity.response.ApiResponse;
-import org.goros.userservice.entity.response.ApiResponseVoid;
+import org.goros.categoryservice.entity.response.ApiResponse;
+import org.goros.categoryservice.entity.response.ApiResponseVoid;
 import org.springframework.http.HttpStatus;
 
 import java.time.Instant;
