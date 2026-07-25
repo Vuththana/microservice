@@ -24,7 +24,7 @@ public class SecurityConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(request -> request.requestMatchers(
-                        "/api/v1/users/**", "/api/v1/user/**").authenticated().requestMatchers("/internal/**").permitAll().anyRequest().permitAll()
+                        "/api/v1/users/**", "/api/v1/user/**").authenticated().requestMatchers("/internal/**", "/actuator/**").permitAll().anyRequest().permitAll()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

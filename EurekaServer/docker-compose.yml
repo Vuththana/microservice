@@ -1,0 +1,82 @@
+services:
+  db:
+    image: postgres:16
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - monitoring-net
+  eurekaserver:
+    image: eureka-server:latest
+    ports:
+      - "8761:8761"
+    networks:
+      - monitoring-net
+  apigateway:
+    image: api-gateway:latest
+    ports:
+      - "8080:8080"
+    networks:
+      - monitoring-net
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  userservice:
+    image: user-service:latest
+    ports:
+      - "8081:8081"
+    networks:
+      - monitoring-net
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  authenticationservice:
+    image: authentication-service:latest
+    ports:
+      - "8082:8082"
+    networks:
+      - monitoring-net
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8081/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./data/prometheus/config:/etc/prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    networks:
+      - monitoring-net
+
+  grafana:
+    image: grafana/grafana-oss:latest
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_SERVER_DOMAIN: localhost
+    volumes:
+      - ./data/grafana:/var/lib/grafana
+    networks:
+      - monitoring-net
+
+networks:
+  monitoring-net:
+    driver: bridge
+
+volumes:
+  pgdata:
