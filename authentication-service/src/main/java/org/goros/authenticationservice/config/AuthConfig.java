@@ -43,7 +43,7 @@ public class AuthConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request ->
-                        request.requestMatchers("/api/v1/auths/**", "/internal/users/identifier/**").permitAll()
+                        request.requestMatchers("/api/v1/auths/**", "/internal/users/identifier/**", "/actuator/**").permitAll()
                                 .anyRequest().authenticated()
                         )
                 .addFilterBefore(internalApiKeyFilter, UsernamePasswordAuthenticationFilter.class)
