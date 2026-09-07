@@ -1,0 +1,45 @@
+INSERT INTO app_users (
+    user_id,
+    username,
+    email,
+    first_name,
+    last_name,
+    is_verified,
+    profile_image,
+    created_at,
+    password
+)
+VALUES
+    (
+        gen_random_uuid(),
+        'john_doe',
+        'john.doe@example.com',
+        'John',
+        'Doe',
+        true,
+        NULL,
+        NOW(),
+        '$2a$10$7EqJtq98hPqEX7fNZaFWoO5J8mK0Q5wQn0y5F0Q4Y4mJ4M3W6i8aG'
+    ),
+    (
+        gen_random_uuid(),
+        'jane_smith',
+        'jane.smith@example.com',
+        'Jane',
+        'Smith',
+        true,
+        NULL,
+        NOW(),
+        '$2a$10$7EqJtq98hPqEX7fNZaFWoO5J8mK0Q5wQn0y5F0Q4Y4mJ4M3W6i8aG'
+    ),
+    (
+        gen_random_uuid(),
+        'alice_wong',
+        'alice.wong@example.com',
+        'Alice',
+        'Wong',
+        false,
+        NULL,
+        NOW(),
+        '$2a$10$7EqJtq98hPqEX7fNZaFWoO5J8mK0Q5wQn0y5F0Q4Y4mJ4M3W6i8aG'
+    );
